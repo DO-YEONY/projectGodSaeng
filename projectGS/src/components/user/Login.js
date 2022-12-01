@@ -1,118 +1,98 @@
-import React from 'react';
-import axios from 'axios';
-import { useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
+import * as server_bridge from '../../controller/server_bridge';
+import { useState } from 'react';
 
-const Login = () => {
-  // 페이지 이동 navigate
+import logo from '../../images/logo-w.png';
+import '../../css/user/common.scss';
+
+const Header = () => {
   const navigate = useNavigate();
 
-  // 로컬 로그인 엔터키 입력시 자동 로그인 버튼 클릭
-  const onKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      handleLogin();
-    }
+  // 로그아웃시 세션 초기화
+  const logout = () => {
+    window.sessionStorage.clear();
+    console.log('세션초기화');
+
+    setLogin((prev) => !prev);
+    navigate('/');
   };
 
-  // 아이디 패스워드 인풋태그 Ref
-  const idRef = useRef();
-  const pwRef = useRef();
+  const [login, setLogin] = useState(false);
 
-  // 로그인 버튼 클릭시 실행 함수
-  const handleLogin = () => {
-    // 아이디 입력 확인
-    if (idRef.current.value === '' || idRef.current.value === undefined) {
-      alert('아이디를 입력하세요');
-      idRef.current.focus();
-      return false;
-    }
+  const onMouse = (e) => {
+    e.target.nextElementSibling.classList.add('on');
+    // e.target.classList.add('on');
+  };
 
-    // 패스워드 입력 확인
-    if (pwRef.current.value === '' || pwRef.current.value === undefined) {
-      alert('패스워드를 입력하세요');
-      pwRef.current.focus();
-      return false;
-    }
-
-    // 로그인 요청시 서버로 요청
-    axios
-      .post('http://localhost:5000/login', {
-        id: idRef.current.value,
-        pw: pwRef.current.value,
-      })
-      .then((res) => {
-        console.log('로그인 정보 일치 확인', res);
-
-        // 일치하는 사용자가 있을경우
-        if (res.data.length === 1) {
-          console.log('성공 idx', res.data[0].USER_ID);
-          console.log('성공 id', res.data[0].USER_ID);
-          console.log('성공 name', res.data[0].USER_NAME);
-
-          // 로그인에 성공하고 세션에 값 저장
-          window.sessionStorage.setItem('USER_IDX', res.data[0].USER_IDX);
-          window.sessionStorage.setItem('USER_ID', res.data[0].USER_ID);
-          window.sessionStorage.setItem('USER_MAIL', res.data[0].USER_MAIL);
-          window.sessionStorage.setItem('USER_NAME', res.data[0].USER_NAME);
-          window.sessionStorage.setItem('USER_TEL', res.data[0].USER_TEL);
-          window.sessionStorage.setItem('ADMIN_OX', res.data[0].ADMIN_OX);
-
-          alert(res.data[0].USER_NAME + '님 환영합니다!');
-          // 세션에 값 저장후 메인페이지로 이동
-          // navigate('/');
-        } else {
-          console.log('실패 id', res.data[0].USER_ID);
-          console.log('실패 name', res.data[0].USER_NAME);
-          console.log('실패 데이터', res.data[0]);
-          //아이디 비밀번호 잘못 입력할 경우 input value 초기화
-          alert('잘못된 아이디와 비밀번호입니다!');
-          idRef.current.value = '';
-          pwRef.current.value = '';
-
-          // 로그인 실패시 다시 로그인 페이지로
-          // navigate('/login');
-        }
-      })
-      .catch((e) => {
-        console.error(e);
-      });
+  const leaveMouse = (e) => {
+    e.target.classList.remove('on');
   };
 
   return (
-    <div id="Login">
-      <div className="memberSection">
-        <div className="sub-title">
-          <h2>로그인</h2>
-        </div>
+    <div id="Header">
+      <div className="logo">
+        <a href="/" title="메인으로">
+          <img src={logo} alt="안전꽹과리 로고" />
+        </a>
+      </div>
+      <div className="menu">
+        <ul>
+          <li>
+            <a onMouseOver={onMouse}>불법주정차 신고</a>
+            <ul className="submenu sub1" onMouseOut={leaveMouse}>
+              <li>
+                <a href="/report">불법주정차 신고</a>
+              </li>
+              <li>
+                <a href="/quickreport">공유킥보드 신고</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a onMouseOver={onMouse}>불법주정차 안내</a>
+            <ul className="submenu sub2" onMouseOut={leaveMouse}>
+              <li>
+                <a href="/illegalareaguide">주정차 금지 구역</a>
+              </li>
+              <li>
+                <a href="/quickguide">공유킥보드 주차 금지 구역</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/point">포인트 사용</a>
+          </li>
+          <li>
+            <a href="/notice">공지사항</a>
+          </li>
+        </ul>
+      </div>
 
-        <form>
-          <div>아이디</div>
-          <input
-            className="id"
-            type="text"
-            defaultValue=""
-            placeholder="아이디를 입력하세요"
-            ref={idRef}
-          />
-          <div>비밀번호</div>
-          <input
-            className="pw"
-            type="password"
-            defaultValue=""
-            placeholder="비밀번호를 입력하세요"
-            ref={pwRef}
-            onKeyPress={onKeyPress}
-          />
-          <input type="button" value="로그인" onClick={handleLogin} />
-          <div>
-            <a href="/forgot">비밀번호 찾기</a>
-          </div>
-          <div>
-            <a href="/join">회원가입 </a>
-          </div>
-        </form>
+      {/* 로그인 여부 확인 */}
+      <div className="login">
+        {window.sessionStorage.getItem('USER_ID') ? (
+          <ul className="logOn">
+            <li>
+              <a onClick={logout}>로그아웃</a>
+            </li>
+            <li>
+              <a href="/mypage" className="goMyPage">
+                마이페이지
+              </a>
+            </li>
+          </ul>
+        ) : (
+          <ul>
+            <li>
+              <a href="/login">로그인</a>
+            </li>
+            <li>
+              <a href="/join">회원가입</a>
+            </li>
+          </ul>
+        )}
       </div>
     </div>
   );
 };
-export default Login;
+export default Header;
