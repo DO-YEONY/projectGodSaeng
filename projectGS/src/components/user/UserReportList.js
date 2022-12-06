@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import Page from '../admin/components/Page';
 import * as server_bridge from '../../controller/server_bridge';
+import { FaBookReader } from 'react-icons/fa';
+
 const UserReportList = () => {
   const header = ['No', '카테고리', '신고일시', '처리상태'];
   const [body, setBody] = useState([]);
@@ -75,6 +77,10 @@ const UserReportList = () => {
   };
   return (
     <>
+      <div>
+        <span>담당자 배정</span>
+        <FaBookReader />
+      </div>
       <div>
         기간 : <input type="date" ref={start_dateRef} /> ~{' '}
         <input type="date" ref={end_dateRef} />

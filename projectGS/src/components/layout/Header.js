@@ -75,11 +75,27 @@ const Header = () => {
             <li>
               <a onClick={logout}>로그아웃</a>
             </li>
-            <li>
-              <a href="/mypage" className="goMyPage">
-                마이페이지
-              </a>
-            </li>
+            <ul>
+              <li class="dropDown">
+                <a href="/mypage" className="goMyPage">
+                  마이페이지
+                </a>
+                <div class="dropDown-content">
+                  <a href="/MyPage">회원정보</a>
+                  <a href="/ManagementP">포인트 관리</a>
+                  <a href="/myreport">나의 신고현황</a>
+                </div>
+              </li>
+              {/* <li>
+                <a href="/MyPage">회원정보</a>
+              </li>
+              <li>
+                <a href="/ManagementP">포인트 관리</a>
+              </li>
+              <li>
+                <a href="/myreport">나의 신고현황</a>
+              </li> */}
+            </ul>
           </ul>
         ) : (
           <ul>
