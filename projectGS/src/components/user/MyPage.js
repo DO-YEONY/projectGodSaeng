@@ -4,152 +4,102 @@
 // export default MyPage;
 //===============================================
 
-import { useNavigate } from 'react-router-dom';
+//======================================
+import { FaUserAlt } from 'react-icons/fa';
 import { SlArrowLeft } from 'react-icons/sl';
-import '../../css/user/MyPage.scss';
-// import ManagementP from '../components/user/ManagementP';
+import '../../css/user/ManagementP.scss';
+import { MdOutlineSettings } from 'react-icons/md';
 
 const MyPage = () => {
-  // const navigate = useNavigate();
-
   return (
-    <div className="myPage">
-      {/* 사이드메뉴 바
-      <div className="SideMenu">
-        <button>MYPAGE</button>
-      </div>
-      <div>
-        <ul>
-          <li>
-            <a href="/MyPage">회원정보</a>
-          </li>
-          <li>
-            <a href="/ManagementP">포인트 관리</a>
-          </li>
-          <li>
-            <a href="/myreport">나의 신고현황</a>
-          </li>
-        </ul>
-      </div>  */}
-      {/* 내용 1 - Head */}
+    <div className="managementP">
       <div className="miniTitle">
         <a>마이페이지</a>
         <SlArrowLeft />
         <a>포인트 관리</a>
       </div>
-      <div className="pointTitle">
-        <h2>현재 회원님의 포인트</h2>
+      <div className="HIuser">
+        <b>일반회원님 환영합니다.</b>
+        <button>
+          회원정보 수정
+          <MdOutlineSettings />
+        </button>
       </div>
-      {/* 내용 2 */}
-      <div className="pointSubTitle">
-        <h3>• 포인트 총 잔액: 150p</h3>
+      <div className="ArrangeP">
+        <div className="userIcon">
+          <FaUserAlt size="160" />
+          <br />
+          <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;일반회원</a>
+        </div>
+        <div className="Mycounter">
+          <ul>
+            <li>
+              <a>신고</a>
+              <a>3</a>
+            </li>
+            <li>
+              <a>총 포인트</a>
+              <a>100p</a>
+            </li>
+            <li>
+              <a>가용 포인트</a>
+              <a>100p</a>
+            </li>
+            <li>
+              <a>사용 포인트</a>
+              <a>5000p</a>
+            </li>
+          </ul>
+          {/* <ul>
+            <li>
+              <a>신고</a>
+              <a>총 포인트</a>
+              <a>가용 포인트</a>
+              <a>사용 포인트</a>
+            </li>
+            <li>
+              <a>3</a>
+              <a>100p</a>
+              <a>100p</a>
+              <a>5000p</a>
+            </li>
+          </ul> */}
+        </div>
       </div>
-      {/* 내용 3 - 목록 리스트 */}
-      <div className="topList">
-        <ul className="listTitle">
-          <li>
-            <a>NO</a>
-          </li>
-          <li>
-            <a>일시</a>
-          </li>
-          <li>
-            <a>신고유형</a>
-          </li>
-          <li>
-            <a>적립</a>
-          </li>
-          <li>
-            <a>사용</a>
-          </li>
-          <li>
-            <a>포인트 잔액</a>
-          </li>
-        </ul>
-      </div>
-      {/* NO3.목록리스트 */}
-      <div>
-        <ul className="listTitle">
-          <li>
-            <a>3</a>
-          </li>
-          <li>
-            <a>2022-12-01</a>
-          </li>
-          <li>
-            <a>불법주정차 (횡단보도)</a>
-          </li>
-          <li>
-            <a>+ 50p</a>
-          </li>
-          <li>
-            <a>0</a>
-          </li>
-          <li>
-            <a>150p</a>
-          </li>
-        </ul>
-      </div>
-      {/* NO2.목록리스트 */}
-      <div>
-        <ul className="listTitle">
-          <li>
-            <a>2</a>
-          </li>
-          <li>
-            <a>2022-11-28</a>
-          </li>
-          <li>
-            <a>불법주정차 (소화전)</a>
-          </li>
-          <li>
-            <a>+ 50p</a>
-          </li>
-          <li>
-            <a>0</a>
-          </li>
-          <li>
-            <a>100p</a>
-          </li>
-        </ul>
-      </div>
-      {/* NO1.목록리스트 */}
-      <div>
-        <ul className="listTitle">
-          <li>
-            <a>1</a>
-          </li>
-          <li>
-            <a>2022-10-02</a>
-          </li>
-          <li>
-            <a>불법주정차 (어린이 보호구역)</a>
-          </li>
-          <li>
-            <a>50p</a>
-          </li>
-          <li>
-            <a>0</a>
-          </li>
-          <li>
-            <a>50p</a>
-          </li>
-        </ul>
-      </div>
-      {/* 안내사항 */}
-      <div className="pointInfo">
-        <span>
-          • 잔여 포인트: 사용가능한 포인트로 사용방법은 5,000p이상시 사용
-          가능합니다.
-        </span>
-        <br />
-        <span>
-          • 소멸예정 포인트: 소멸되기 2개월 전에 안내되며 소멸예정월 1일에
-          소멸됩니다.
-        </span>
+      <div className="userBenefit">
+        <div>
+          <p>회원님의 혜택정보</p>
+        </div>
+        <div className="BenefitInfo">
+          - 담당자의 확인을 거쳐 정상처리된 신고건수당
+          <br />
+          50p가 적립되며, 포인트는 온누리 상품권으로 교환이 가능합니다.
+          <br />
+          <br />
+          - 담당자의 확인을 거쳐 정상처리된 신고건수당 50p가 적립되며,
+          <br />
+          포인트는 온누리 상품권으로 교환이 가능합니다.
+          <br />
+          {/* <p>- 담당자의 확인을 거쳐 정상처리된 신고건수당 </p>
+          <p>50p가 적립되며, 포인트는 온누리 상품권으로 교환이 가능합니다.</p>
+          {/* <span>
+            - 담당자의 확인을 거쳐 정상처리된 신고건수당 50p 가 적립되며,
+            포인트는 온누리 상품권으로 교환이 가능합니다.
+          </span> */}
+          {/* <br />
+          <br />
+          <p>- 온누리 상품권은</p>
+          <p>
+            모바일로 발송되오니 개인정보 수집 이용에 동의하여 주시기 바랍니다.
+          </p> */}
+          {/* <span>
+
+            - 온누리 상품권은 모바일로 발송되오니 개인정보 수집 이용에 동의하여
+            주시기 바랍니다.
+          </span> */}
+        </div>
       </div>
     </div>
   );
 };
 export default MyPage;
-//======================================
