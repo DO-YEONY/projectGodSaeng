@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+
 import { SlArrowLeft } from 'react-icons/sl';
 import '../../css/user/MyPage.scss';
 // import ManagementP from '../components/user/ManagementP';
